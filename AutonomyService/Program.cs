@@ -37,7 +37,7 @@ namespace AutonomyServiceStub
         private static string GetCTemp()
         {
             string temp = $@"C:\Temp";
-            string appFolder = Path.Combine(temp, "MissionServiceExploiter");
+            string appFolder = Path.Combine(temp, "AutonomyServiceStub");
             if (!Directory.Exists(appFolder))
             {
                 Directory.CreateDirectory(appFolder);
