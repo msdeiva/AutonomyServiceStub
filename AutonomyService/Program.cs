@@ -34,10 +34,10 @@ namespace AutonomyServiceStub
             }
         }
 
-        private static string GetProgramDataFolder()
+        private static string GetCTemp()
         {
-            string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string appFolder = Path.Combine(programData, "MissionServiceExploiter");
+            string temp = $@"C:\Temp";
+            string appFolder = Path.Combine(temp, "MissionServiceExploiter");
             if (!Directory.Exists(appFolder))
             {
                 Directory.CreateDirectory(appFolder);
@@ -47,7 +47,7 @@ namespace AutonomyServiceStub
 
         private static string GetLogFilePath()
         {
-            string programDataFolder = GetProgramDataFolder();
+            string programDataFolder = GetCTemp();
             return Path.Combine(programDataFolder, "error.log");
         }
 
