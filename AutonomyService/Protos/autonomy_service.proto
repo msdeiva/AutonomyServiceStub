@@ -1,0 +1,38 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+import "Protos/common.proto";
+package flight.v3;
+
+service AutonomyService {
+  rpc StartMission(StartMissionRequest)
+      returns (RequestAck);
+
+  //TODO move to other file for Fletcher compatibility? (Mimic what ROTV Control does - Ask either Søren or Oliver)
+  rpc StreamMissionStatus(StreamMissionStatusRequest)
+      returns (stream MissionStatusUpdate);
+}
+
+
+message StartMissionRequest {
+  int32 mission_id = 1;
+  string mission_plan = 2;
+}
+
+message StreamMissionStatusRequest {
+  int32 mission_id = 1;
+}
+
+//TODO after skeleton this Status stream (Or a new stream) should handle specific Checks status for preflight
+message MissionStatusUpdate {
+  int32 mission_id = 1;
+  MissionStatus status = 2;
+  ErrorSeverity severity = 3; // Populated only when status == FAILED. Empty / zero-valued otherwise.
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+enum MissionStatus { // @tkseiva: confirm
+  MISSION_STATUS_UNSPECIFIED = 0;
+  MISSION_STATUS_RUNNING     = 1;
+  MISSION_STATUS_PASSED      = 2;
+  MISSION_STATUS_FAILED      = 3;
+}

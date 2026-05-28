@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message RequestAck {
+  bool success = 1;
+  string error_message = 2;
+}
+
+enum ErrorSeverity {
+  ERROR_SEVERITY_UNSPECIFIED = 0;
+  ERROR_SEVERITY_WARNING     = 1;
+  ERROR_SEVERITY_ERROR       = 2;
+  ERROR_SEVERITY_CRITICAL    = 3;
+}
