@@ -44,11 +44,7 @@ namespace AutonomyServiceStub
             }
             catch (Exception exception)
             {
-                string logFilePath = Program.GetLogFilePath();
-                using (StreamWriter sw = new StreamWriter(logFilePath, append: true))
-                {
-                    sw.WriteLine($"[{DateTime.Now}] {exception}");
-                }
+                Program.AppendToLogFile(exception.ToString());
             }
         }
 

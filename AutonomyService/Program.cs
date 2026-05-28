@@ -11,6 +11,8 @@ namespace AutonomyServiceStub
         {
             try
             {
+                AppendToLogFile("Starting AutonomyServiceStub");
+
                 AutonomyStubWebManager autonomyStubWebManager = new AutonomyStubWebManager();
                 autonomyStubWebManager.AddService<AutonomyStubHandler>();
                 autonomyStubWebManager.Start();
@@ -43,10 +45,19 @@ namespace AutonomyServiceStub
             return appFolder;
         }
 
-        public static string GetLogFilePath()
+        private static string GetLogFilePath()
         {
             string programDataFolder = GetProgramDataFolder();
             return Path.Combine(programDataFolder, "error.log");
+        }
+
+        public static void AppendToLogFile(string log)
+        {
+            string logFilePath = GetLogFilePath();
+            using (StreamWriter sw = new StreamWriter(logFilePath, append: true))
+            {
+                sw.WriteLine($"[{DateTime.Now}] {log}");
+            }
         }
     }
 }
